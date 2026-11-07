@@ -1,17 +1,21 @@
 {
-  "name": "Miss Ikram Boudaoud · Tea Cup",
+  "name": "Tea Cup with Miss Ikram",
   "short_name": "Tea Cup",
   "description": "EFL teacher in Tlemcen, Algeria: warm-ups, UABT lectures, worksheets and placement tests.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#3b1d0e",
+  "background_color": "#fbf1e0",
   "theme_color": "#4a2312",
   "icons": [
-    { "src": "/images/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "/images/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "/images/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
-    { "src": "/images/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    { "src": "/images/icon-v2-48.png", "sizes": "48x48", "type": "image/png", "purpose": "any" },
+    { "src": "/images/icon-v2-72.png", "sizes": "72x72", "type": "image/png", "purpose": "any" },
+    { "src": "/images/icon-v2-96.png", "sizes": "96x96", "type": "image/png", "purpose": "any" },
+    { "src": "/images/icon-v2-144.png", "sizes": "144x144", "type": "image/png", "purpose": "any" },
+    { "src": "/images/icon-v2-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/images/icon-v2-384.png", "sizes": "384x384", "type": "image/png", "purpose": "any" },
+    { "src": "/images/icon-v2-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/images/icon-v2-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ]
 }
