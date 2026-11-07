@@ -275,11 +275,12 @@ b.onclick=function(){var t='tcup.ikram@gmail.com';
 try{navigator.clipboard.writeText(t).then(function(){b.textContent='Copied ✓'})}catch(e){b.textContent=t}
 setTimeout(function(){b.textContent='Copy email'},2200)};
 
-// Install app (PWA)
+// Install app (PWA) — button is shown whenever not installed, so it never "disappears"
 if('serviceWorker' in navigator){try{navigator.serviceWorker.register('/sw.js')}catch(e){}}
 var inst=document.getElementById('install'),dip=null;
-window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();dip=e;inst.hidden=false});
-inst.addEventListener('click',function(){if(!dip)return;dip.prompt();if(dip.userChoice)dip.userChoice.then(function(r){if(r.outcome==='accepted'){inst.hidden=true;dip=null}})});
+try{inst.hidden=(window.matchMedia('(display-mode: standalone)').matches||navigator.standalone===true)}catch(e){inst.hidden=false}
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();dip=e});
+inst.addEventListener('click',function(){if(dip){dip.prompt();if(dip.userChoice)dip.userChoice.then(function(r){if(r.outcome==='accepted'){inst.hidden=true;dip=null}})}else{inst.textContent='Tap ⋮ → Install app';setTimeout(function(){inst.textContent='📲 Install app'},3000)}});
 window.addEventListener('appinstalled',function(){inst.hidden=true;dip=null});
 
 // Share (native share sheet → WhatsApp, Telegram, Messages, etc.)
