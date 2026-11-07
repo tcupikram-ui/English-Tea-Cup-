@@ -161,9 +161,22 @@ footer{margin-top:22px;font-size:.85rem;opacity:.75}
 .l .more{left:-12px}.r .more{right:-12px}
 .go{display:inline-block;margin-top:8px;font:700 .85rem 'Cinzel','Trajan Pro',Georgia,serif;letter-spacing:.04em;color:var(--c4)}
 @media(max-width:560px){.stage{--b:84px;height:800px}.node{width:100px}.node h2{font-size:.85rem;letter-spacing:.03em}.more{width:176px;font-size:.85rem}.hubc .logo{width:min(150px,42vw)}.n3{right:0}.n6{left:0}}
+#splash{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;text-align:center;background:radial-gradient(55% 42% at 50% 36%,rgba(201,138,90,.22),transparent 70%),radial-gradient(70% 50% at 50% 100%,rgba(251,236,210,.10),transparent 70%),#2a150b;transition:opacity .7s ease,visibility .7s ease}
+#splash.hide{opacity:0;visibility:hidden;pointer-events:none}
+.sp-inner{padding:0 26px}
+.sp-cup{font-size:4.4rem;line-height:1;margin-bottom:16px;display:inline-block;animation:spFloat 2.6s ease-in-out infinite;filter:drop-shadow(0 10px 18px rgba(0,0,0,.5))}
+.sp-title{font-family:'Cinzel','Trajan Pro',Georgia,serif;font-weight:900;font-size:clamp(1.35rem,5.4vw,2rem);letter-spacing:.05em;background:linear-gradient(135deg,#8a6420,#f6e08f 25%,#c9a24b 50%,#fff3b8 65%,#a77a2a 85%,#e8c969);background-size:250% 250%;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;animation:gold 6s ease-in-out infinite;filter:drop-shadow(0 2px 3px rgba(40,18,8,.85))}
+.sp-sub{font-family:'Nunito',system-ui,sans-serif;font-weight:700;letter-spacing:.05em;color:#fbe9cf;margin-top:12px;opacity:.88;font-size:1rem}
+.sp-dots{margin-top:20px;display:flex;justify-content:center;gap:9px}
+.sp-dots span{width:9px;height:9px;border-radius:50%;background:#c9a24b;box-shadow:0 0 10px rgba(201,162,75,.6);animation:spDot 1.2s ease-in-out infinite}
+.sp-dots span:nth-child(2){animation-delay:.15s}
+.sp-dots span:nth-child(3){animation-delay:.3s}
+@keyframes spFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-11px)}}
+@keyframes spDot{0%,100%{transform:scale(.7);opacity:.4}50%{transform:scale(1.2);opacity:1}}
 </style>
 </head>
 <body>
+<div id="splash" aria-hidden="true"><div class="sp-inner"><div class="sp-cup">☕</div><div class="sp-title">Tea Cup with Miss Ikram</div><div class="sp-sub">Brewing your fluency…</div><div class="sp-dots"><span></span><span></span><span></span></div></div></div>
 <div id="fx"></div>
 <button id="mute" type="button" aria-label="Mute or unmute sounds" aria-pressed="false">🔊</button>
 <main>
@@ -228,6 +241,8 @@ footer{margin-top:22px;font-size:.85rem;opacity:.75}
 </main>
 <script>
 (function(){
+var SPLASH_MS=3200,spEl=document.getElementById('splash');
+if(spEl){setTimeout(function(){spEl.classList.add('hide');setTimeout(function(){if(spEl.parentNode)spEl.parentNode.removeChild(spEl)},800)},SPLASH_MS)}
 var fx=document.getElementById('fx');
 for(var i=0;i<26;i++){var s=document.createElement('span'),z=8+Math.random()*26;
 s.className='p';s.style.cssText='left:'+Math.random()*100+'%;width:'+z+'px;height:'+z+'px;animation-duration:'+(12+Math.random()*16)+'s;animation-delay:-'+Math.random()*20+'s;--dx:'+(Math.random()*120-60)+'px;opacity:.6';fx.appendChild(s);}
