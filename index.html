@@ -210,6 +210,8 @@ footer{margin-top:22px;font-size:.85rem;opacity:.75}
     <div class="btns">
       <a class="btn mail" href="https://mail.google.com/mail/?view=cm&fs=1&to=tcup.ikram@gmail.com&su=Hello%20Miss%20Ikram" target="_blank" rel="noopener">✉️ tcup.ikram@gmail.com</a>
       <button class="btn alt" id="copy">Copy email</button>
+      <button class="btn" id="install" hidden>📲 Install app</button>
+      <button class="btn alt" id="share">📤 Share</button>
     </div>
     <div class="social">
       <span>FOLLOW ME</span>
@@ -261,6 +263,21 @@ var b=document.getElementById('copy');
 b.onclick=function(){var t='tcup.ikram@gmail.com';
 try{navigator.clipboard.writeText(t).then(function(){b.textContent='Copied ✓'})}catch(e){b.textContent=t}
 setTimeout(function(){b.textContent='Copy email'},2200)};
+
+// Install app (PWA)
+if('serviceWorker' in navigator){try{navigator.serviceWorker.register('/sw.js')}catch(e){}}
+var inst=document.getElementById('install'),dip=null;
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();dip=e;inst.hidden=false});
+inst.addEventListener('click',function(){if(!dip)return;dip.prompt();if(dip.userChoice)dip.userChoice.then(function(r){if(r.outcome==='accepted'){inst.hidden=true;dip=null}})});
+window.addEventListener('appinstalled',function(){inst.hidden=true;dip=null});
+
+// Share (native share sheet → WhatsApp, Telegram, Messages, etc.)
+var sh=document.getElementById('share');
+sh.addEventListener('click',function(){
+var d={title:'Tea Cup with Miss Ikram',text:'Tea Cup with Miss Ikram — Brew your fluency!',url:'https://ikrambd.com/'};
+if(navigator.share){navigator.share(d).catch(function(){})}
+else{try{navigator.clipboard.writeText('https://ikrambd.com/').then(function(){sh.textContent='Link copied ✓';setTimeout(function(){sh.textContent='📤 Share'},2200)})}catch(e){sh.textContent='https://ikrambd.com/'}}
+});
 })();
 </script>
 </body>
