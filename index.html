@@ -44,6 +44,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="/images/splash-logo-v2.png">
 <script>try{if(sessionStorage.getItem('tcSplash')==='1')document.documentElement.classList.add('splash-off')}catch(e){}</script>
+<script>window.__dip=null;window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();window.__dip=e});</script>
 <noscript><style>#splash{display:none!important}</style></noscript>
 <style>
 :root{--c1:#fbf1e0;--c2:#efd4ad;--c3:#c98a5a;--c4:#8a4b2a;--ink:#4a2614;--card:rgba(255,248,236,.78);--gold:#c9a24b;--glow:rgba(201,162,75,.55);
@@ -277,11 +278,14 @@ setTimeout(function(){b.textContent='Copy email'},2200)};
 
 // Install app (PWA) — button is shown whenever not installed, so it never "disappears"
 if('serviceWorker' in navigator){try{navigator.serviceWorker.register('/sw.js')}catch(e){}}
-var inst=document.getElementById('install'),dip=null;
+var inst=document.getElementById('install');
 try{inst.hidden=(window.matchMedia('(display-mode: standalone)').matches||navigator.standalone===true)}catch(e){inst.hidden=false}
-window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();dip=e});
-inst.addEventListener('click',function(){if(dip){dip.prompt();if(dip.userChoice)dip.userChoice.then(function(r){if(r.outcome==='accepted'){inst.hidden=true;dip=null}})}else{inst.textContent='Tap ⋮ → Install app';setTimeout(function(){inst.textContent='📲 Install app'},3000)}});
-window.addEventListener('appinstalled',function(){inst.hidden=true;dip=null});
+inst.addEventListener('click',function(){
+var dip=window.__dip;
+if(dip){dip.prompt();if(dip.userChoice)dip.userChoice.then(function(r){if(r.outcome==='accepted'){inst.hidden=true;window.__dip=null}})}
+else{var touch=('ontouchstart' in window)||(navigator.maxTouchPoints>0);inst.textContent=touch?'Tap ⋮ → Install app':'Use ⋮ menu → Install app';setTimeout(function(){inst.textContent='📲 Install app'},3000)}
+});
+window.addEventListener('appinstalled',function(){inst.hidden=true;window.__dip=null});
 
 // Share (native share sheet → WhatsApp, Telegram, Messages, etc.)
 var sh=document.getElementById('share');
